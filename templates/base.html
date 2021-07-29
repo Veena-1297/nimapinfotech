@@ -1,0 +1,67 @@
+
+<script src="https://www.organicdrop.in/static/asset/JS/jquery.js"></script>
+<link type="text/css" href="https://www.organicdrop.in/media/CSSUPLOADS/jquery-toast-plugin.css" rel="stylesheet">
+<script src="https://www.organicdrop.in/media/JSUPLOADS/jquery-toast-plugin.js"></script>
+
+
+
+<script>
+
+    var get_params = function(search_string) {
+
+  var parse = function(params, pairs) {
+    var pair = pairs[0];
+    var parts = pair.split('=');
+    var key = decodeURIComponent(parts[0]);
+    var value = decodeURIComponent(parts.slice(1).join('='));
+
+    // Handle multiple parameters of the same name
+    if (typeof params[key] === "undefined") {
+      params[key] = value;
+    } else {
+      params[key] = [].concat(params[key], value);
+    }
+
+    return pairs.length == 1 ? params : parse(params, pairs.slice(1))
+  }
+
+  // Get rid of leading ?
+  return search_string.length == 0 ? {} : parse({}, search_string.substr(1).split('&'));
+}
+
+var params = get_params(location.search);
+
+let error = params["e"]
+let success = params["s"]
+if(error){
+
+setTimeout(function(){
+
+alert(error)
+
+},500)
+
+
+}
+
+
+if(success){
+setTimeout(function(){
+
+alert(success)
+
+},500)
+}
+
+var base_url = "http://127.0.0.1:8000"
+
+</script>
+
+
+<style>
+
+    body{
+    background:aliceblue;
+    }
+
+</style>

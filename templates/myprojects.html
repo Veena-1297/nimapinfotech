@@ -1,0 +1,51 @@
+
+{% include "./base.html" %}
+
+
+
+<div style="background:black;padding:20px;color:white;">
+    <a  href="/index/?page=registerclient" style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">REGISTER CLIENT</a>
+        <a  href="/index/?page=searchclient"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">SEARCH CLIENT</a>
+
+        <a  href="/index/?page=addproject"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">ADD PROJECT</a>
+
+            <a  href="/index/?page=myprojects"  style="background:blue;padding:10px;border:0px;color:white;margin:5px;">MY PROJECT </a>
+                <a  href="/logout/"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">LOGOUT </a>
+
+</div>
+
+
+<h1 >MY PROJECTS</h1>
+
+<div style="margin:30px;border:2px solid black;padding:5px;">
+
+    {% for p in project_list %}
+
+
+    <div style="
+
+     {% if p.completed %}
+         background-color:#43A047;
+     {% else %}
+         background-color:#E53935;
+     {% endif %}
+padding:5px;
+color:white !important;
+">
+        Name : {{p.name}} <br/>
+        Client Name : {{p.client_name}} <br/>
+        Description : {{p.description}}<br/>
+        created_at : {{p.created_at}}<br/>
+        completed : {{p.completed}}<br/>
+
+
+
+    </div>
+
+    <br/><br/>
+
+    {% endfor %}
+
+
+</div>
+

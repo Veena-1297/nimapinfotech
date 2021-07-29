@@ -1,0 +1,72 @@
+{% include "./base.html" %}
+<div style="background:black;padding:20px;color:white;">
+    <a  href="/index/?page=registerclient" style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">REGISTER CLIENT</a>
+        <a  href="/index/?page=searchclient"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">SEARCH CLIENT</a>
+
+        <a  href="/index/?page=addproject"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">ADD PROJECT</a>
+
+            <a  href="/index/?page=myprojects"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">MY PROJECT </a>
+
+            <a  href="/logout/"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">LOGOUT </a>
+
+
+</div>
+
+
+
+<h1 >UPDATE A CLIENT</h1>
+
+
+
+<form id="updateclient" method="POST" action="#">
+<b>CLIENT NAME</b><br/>
+<input id="name"  required value="{{name}}" /><br/><br/><br/>
+
+<b>CLIENT NUMBER</b><br/>
+<input id="mobile_number" value="{{mobile_number}}" type="number"  required /><br/><br/><br/>
+
+<b>CLIENT EMAIL</b><br/>
+<input id="email_id" type="email" value="{{email_id}}"  required /><br/><br/><br/>
+
+<b>CLIENT DECRIPTION</b><br/>
+    <textarea  id="description" required >{{description}}</textarea><br/><br/><br/>
+
+
+    <button type="submit" style="background:#D32F2F;padding:10px;border:0px;color:white;">PROCEED</button>
+    </form>
+
+
+ <script type='text/javascript'>
+         $(document).ready(function() {
+
+            $("#updateclient").submit(function(e){
+                e.preventDefault(e);
+
+
+$.ajax({
+  url: base_url+"/client/{{id}}/",
+  type: 'PUT',
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+
+  contentType: 'application/json',
+   data: JSON.stringify({
+                "id":{{id}},
+                "name": $("#name").val(),
+                "email_id": $("#email_id").val() ,
+                "mobile_number":$("#mobile_number").val() ,
+                "description":$("#description").val()
+                 }),success: function(data) {
+    console.log(data)
+    alert("client updated")
+    $("#updateclient").trigger("reset");
+  }
+});
+
+
+
+
+            });
+        });
+        </script>
+
+

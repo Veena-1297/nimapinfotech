@@ -1,0 +1,37 @@
+
+{% include "./base.html" %}
+
+<div style="background:black;padding:20px;color:white;">
+    <a  href="/index/?page=registerclient" style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">REGISTER CLIENT</a>
+        <a  href="/index/?page=searchclient"  style="background:blue;padding:10px;border:0px;color:white;margin:5px;">SEARCH CLIENT</a>
+
+        <a  href="/index/?page=addproject"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">ADD PROJECT TO CLIENT</a>
+
+        <a  href="/index/?page=adduser"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">ADD USER TO PROJECT </a>
+
+            <a  href="/index/?page=myprojects"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">MY PROJECT </a>
+
+
+
+</div>
+
+<h1 >REGISTER A CLIENT</h1>
+
+
+
+<form method="POST" action="#">
+<b>CLIENT NAME</b><br/>
+<input  required  /><br/><br/><br/>
+
+<b>CLIENT NUMBER</b><br/>
+<input type="number"  required /><br/><br/><br/>
+
+<b>CLIENT EMAIL</b><br/>
+<input type="email"  required /><br/><br/><br/>
+
+<b>CLIENT DECRIPTION</b><br/>
+    <textarea   required ></textarea><br/><br/><br/>
+
+
+    <button type="submit" style="background:#D32F2F;padding:10px;border:0px;color:white;">PROCEED</button>
+    </form>

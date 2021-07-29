@@ -1,0 +1,82 @@
+{% include "./base.html" %}
+
+<div style="background:black;padding:20px;color:white;">
+    <a  href="/index/?page=registerclient" style="background:blue;padding:10px;border:0px;color:white;margin:5px;">REGISTER CLIENT</a>
+        <a  href="/index/?page=searchclient"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">SEARCH CLIENT</a>
+
+        <a  href="/index/?page=addproject"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">ADD PROJECT</a>
+
+            <a  href="/index/?page=myprojects"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">MY PROJECT </a>
+
+
+            <a  href="/logout/"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">LOGOUT </a>
+
+</div>
+<h1 >REGISTER A CLIENT</h1>
+
+
+
+<form id="registerclient" method="POST" action="#">
+<b>CLIENT NAME</b><br/>
+<input id="name"  required  /><br/><br/><br/>
+
+<b>CLIENT NUMBER</b><br/>
+<input id="mobile_number" type="number"  required /><br/><br/><br/>
+
+<b>CLIENT EMAIL</b><br/>
+<input id="email_id" type="email"  required /><br/><br/><br/>
+
+<b>CLIENT DECRIPTION</b><br/>
+    <textarea  id="description" required ></textarea><br/><br/><br/>
+
+
+    <button type="submit" style="background:#D32F2F;padding:10px;border:0px;color:white;">REGISTER</button>
+    </form>
+
+
+ <script type='text/javascript'>
+         $(document).ready(function() {
+            $("#registerclient").submit(function(e){
+                e.preventDefault(e);
+
+
+$.ajax({
+      url:base_url+"/client/",
+      type:"POST",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data:{
+                "name": $("#name").val(),
+                "email_id": $("#email_id").val() ,
+                "mobile_number":$("#mobile_number").val() ,
+                "description":$("#description").val()
+                 },
+      dataType:"json",
+
+      success:function(data) {
+     console.log(data);
+    alert("CLIENT ADDED")
+    $("#registerclient").trigger("reset");    }
+    })
+
+
+/*
+
+                $.post( base_url+"/client/", {
+                "name": $("#name").val(),
+                "email_id": $("#email_id").val() ,
+                "mobile_number":$("#mobile_number").val() ,
+                "description":$("#description").val()
+                 })
+  .done(function( data ) {
+    console.log(data);
+    alert("CLIENT ADDED")
+    $("#registerclient").trigger("reset");
+    //location.reload()
+  });
+*/
+
+            });
+        });
+        </script>
+
+

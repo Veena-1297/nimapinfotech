@@ -1,0 +1,173 @@
+
+
+{% include "./base.html" %}
+
+
+<div style="background:black;padding:20px;color:white;">
+    <a  href="/index/?page=registerclient" style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">REGISTER CLIENT</a>
+        <a  href="/index/?page=searchclient"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">SEARCH CLIENT</a>
+
+        <a  href="/index/?page=addproject"  style="background:blue;padding:10px;border:0px;color:white;margin:5px;">ADD PROJECT</a>
+
+            <a  href="/index/?page=myprojects"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">MY PROJECT </a>
+            <a  href="/logout/"  style="background:#D32F2F;padding:10px;border:0px;color:white;margin:5px;">LOGOUT </a>
+
+
+
+</div>
+
+<h1 >ADD PROJECT</h1>
+
+
+
+<form id="addproject" method="POST" action="#">
+<b>PROJECT NAME</b><br/>
+<input  required id="name"  /><br/><br/><br/>
+
+<b>PROJECT DECRIPTION</b><br/>
+    <textarea  id="description"  required ></textarea><br/><br/><br/>
+
+<b>CLIENT NAME</b><br/>
+<input type="text" id="client_name"  required /><br/><br/><br/>
+
+
+
+    <button type="submit" style="background:#D32F2F;padding:10px;border:0px;color:white;">ADD PROJECT</button><br/><br/><br/>
+        <button onclick="resetForm()" style="background:#D32F2F;padding:10px;border:0px;color:white;">RESET FORM</button><br/><br/><br/>
+
+    </form>
+
+
+ <script type='text/javascript'>
+
+ let id = null
+
+
+         $(document).ready(function() {
+            $("#addproject").submit(function(e){
+                id = null
+                e.preventDefault(e);
+
+
+
+
+$.ajax({
+      url:base_url+"/project/",
+      type:"POST",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data:{
+                "name": $("#name").val(),
+                "description": $("#description").val() ,
+                "client_name":$("#client_name").val() ,
+                 },
+      dataType:"json",
+
+      success:function(data) {
+     console.log(data);
+    id = data["id"]
+    alert("PROJECT ADDED ADDED")
+       }
+    })
+
+/*
+                $.post( "/project/", {
+                "name": $("#name").val(),
+                "description": $("#description").val() ,
+                "client_name":$("#client_name").val() ,
+                 })
+  .done(function( data ) {
+    console.log(data);
+    id = data["id"]
+    alert("PROJECT ADDED ADDED")
+
+  });
+
+*/
+            });
+        });
+
+
+        function resetForm(){
+
+         $("#addproject").trigger("reset");
+         id=null
+
+        }
+
+        </script>
+
+
+
+
+<h1 >ADD USERS</h1>
+
+
+
+<form id="adduser" method="POST" action="#">
+{% for u in users %}
+<input type="checkbox" id="{{u.id}}" /> {{u.username}}  <br/><br/>
+{% endfor %}
+
+    <button type="submit" style="background:#D32F2F;padding:10px;border:0px;color:white;">ADD</button>
+    </form>
+
+ <script type='text/javascript'>
+
+
+
+
+         $(document).ready(function() {
+            $("#adduser").submit(function(e){
+                                e.preventDefault(e);
+         let data = {users:{}}
+
+                 {% for u in users %}
+
+           if($("#{{u.id}}").is(':checked') ){
+            data["users"]["{{u.id}}"] = true
+
+         }
+
+         {% endfor %}
+              data["project_id"]=id
+
+                if(!id){
+                   alert("PLEASE ADD VALID PROJECT")
+                   return
+                }
+
+
+
+$.ajax({
+      url:base_url+"/add/users/project/",
+      type:"POST",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data:JSON.stringify(data),
+      dataType:"json",
+
+      success:function(data) {
+     console.log(data);
+    alert("CLIENT ADDED")    }
+    })
+
+
+                /*
+                $.post( base_url+"/add/users/project/", JSON.stringify(data))
+  .done(function( data ) {
+    console.log(data);
+    alert("CLIENT ADDED")
+      //  $("#adduser").trigger("reset");
+
+    //location.reload()
+  });
+
+*/
+
+            });
+        });
+
+
+        </script>
+
+
+
